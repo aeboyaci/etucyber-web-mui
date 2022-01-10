@@ -35,3 +35,33 @@ a {
         font-size: 3rem;
     }
 }
+
+.btn {
+    padding: 5px 10px;
+    color: white;
+    background-color: #1983FF;
+    border: none;
+    border-radius: 3px;
+}
+.btn:hover {
+    cursor: pointer;
+}
+.success-btn {
+    background-color: #1DB954 !important;
+}
+
+#postContent img {
+    max-width: 100%;
+}
+
+#postContent p {
+    font-family: "Roboto" !important;
+    font-weight: 400;
+    color: #555;
+}
+
+#postContent h1, h2, h3, h4 {
+    font-family: "Raleway";
+    font-weight: 700;
+    color: #333;
+}

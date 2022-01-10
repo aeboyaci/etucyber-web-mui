@@ -18,64 +18,54 @@ const TopNav = () => {
                         </Typography>
                     </Link>
                     <Box className={classes.navs}>
-                        <Link href="/" style={{ textDecoration: "none" }} underline="none">
-                            <Typography
-                                className={
-                                    location === "/" ? classes.activeNavLink : classes.navLink
-                                }
-                                variant="button"
+                        <Typography variant="button">
+                            <Link href="/" style={{ textDecoration: "none" }} underline="none"
                             >
-                                Ana Sayfa
-                            </Typography>
-                        </Link>
-                        <Link
-                            href="/hakkimizda"
-                            style={{ textDecoration: "none" }}
-                            underline="none"
-                        >
-                            <Typography
-                                className={
-                                    location === "/hakkimizda"
-                                        ? classes.activeNavLink
-                                        : classes.navLink
-                                }
-                                variant="button"
+                                <a
+                                    className={
+                                        location === "/" ? classes.activeNavLink : classes.navLink
+                                    }
+                                >
+                                    Ana Sayfa
+                                </a>
+                            </Link>
+                        </Typography>
+                        <Typography variant="button">
+                            <Link href="/hakkimizda" style={{ textDecoration: "none" }} underline="none"
                             >
-                                Hakkımızda
-                            </Typography>
-                        </Link>
-                        <Link
-                            href="/blog"
-                            style={{ textDecoration: "none" }}
-                            underline="none"
-                        >
-                            <Typography
-                                className={
-                                    location.includes("/blog")
-                                        ? classes.activeNavLink
-                                        : classes.navLink
-                                }
-                                variant="button"
+                                <a
+                                    className={
+                                        location === "/hakkimizda" ? classes.activeNavLink : classes.navLink
+                                    }
+                                >
+                                    Hakkımızda
+                                </a>
+                            </Link>
+                        </Typography>
+                        <Typography variant="button">
+                            <Link href="/blog" style={{ textDecoration: "none" }} underline="none"
                             >
-                                Blog
-                            </Typography>
-                        </Link>
-                        <Link
-                            href="/iletisim"
-                            style={{ textDecoration: "none" }}
-                            underline="none"
-                        >
-                            <Typography
-                                className={
-                                    location === "/iletisim"
-                                        ? classes.activeNavLink
-                                        : classes.navLink
-                                }
-                                variant="button"
+                                <a
+                                    className={
+                                        location === "/blog" ? classes.activeNavLink : classes.navLink
+                                    }
+                                >
+                                    Blog
+                                </a>
+                            </Link>
+                        </Typography>
+                        <Typography variant="button">
+                            <Link href="/iletisim" style={{ textDecoration: "none" }} underline="none"
                             >
-                                İLETİŞİM
-                            </Typography>
-                        </Link>
+                                <a
+                                    className={
+                                        location === "/iletisim" ? classes.activeNavLink : classes.navLink
+                                    }
+                                >
+                                    İLETİŞİM
+                                </a>
+                            </Link>
+                        </Typography>
                     </Box>
                 </Toolbar>
             </AppBar>

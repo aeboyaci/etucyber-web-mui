@@ -20,6 +20,7 @@
     "clsx": "^1.1.1",
     "formik": "^2.2.9",
     "next": "latest",
+    "prismjs": "^1.26.0",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
