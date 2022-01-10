@@ -9,7 +9,7 @@ const Hakkimizda = () => {
     return (
         <React.Fragment>
             <Head>
-                <title>Hakkımızda - Etucyber</title>
+                <title>Hakkımızda ~ Etucyber</title>
                 <meta name="description" content="Etucyber aile ortamı içerisinde üyelerin; birbirini geliştirmesi, siber güvenlik sektöründeki önemli kişiler ile tanışmasını ve bilgi seviyesini arttırmayı amaçlamaktadır." />
             </Head>
             <MainLayout>

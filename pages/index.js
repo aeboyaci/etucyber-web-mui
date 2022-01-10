@@ -11,7 +11,7 @@ const Index = () => {
     return (
         <React.Fragment>
             <Head>
-                <title>Ana Sayfa - Etucyber</title>
+                <title>Ana Sayfa ~ Etucyber</title>
                 <meta name="description" content="Etucyber - TOBB ETÜ Siber Güvenlik Topluluğu. Etucyber aile ortamı içerisinde üyelerin; birbirini geliştirmesi, siber güvenlik sektöründeki önemli kişiler ile tanışmasını ve bilgi seviyesini arttırmayı amaçlamaktadır." />
             </Head>
             <MainLayout>

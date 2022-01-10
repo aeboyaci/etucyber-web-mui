@@ -9,7 +9,7 @@ const Blog = ({ posts }) => {
     return (
         <React.Fragment>
             <Head>
-                <title>Blog - Etucyber</title>
+                <title>Blog ~ Etucyber</title>
             </Head>
             <MainLayout>
                 <Box style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('/blog.png')`}} className={"hero"}>

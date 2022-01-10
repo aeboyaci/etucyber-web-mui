@@ -60,7 +60,7 @@ const BlogPost = ({post}) => {
     return (
         <React.Fragment>
             <Head>
-                <title>{post.title} - Etucyber</title>
+                {post && <title>{post.title} ~ Etucyber</title>}
             </Head>
             <MainLayout>
                 {post && (
@@ -68,7 +68,7 @@ const BlogPost = ({post}) => {
                         <Box
                             style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('${post.imageUrl}')`}}
                             className={"hero"}>
-                            <Box>{post.title}</Box>
+                            <Box style={{ textAlign: "center" }}>{post.title}</Box>
                         </Box>
                         <Container className={classes.blogContainer} maxWidth="lg">
                             <Grid container justifyContent="center">

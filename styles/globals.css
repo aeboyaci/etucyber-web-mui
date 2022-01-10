@@ -65,3 +65,13 @@ a {
     font-weight: 700;
     color: #333;
 }
+
+::-moz-selection { /* Code for Firefox */
+    color: white;
+    background: #1983FF;
+}
+
+::selection {
+    color: white;
+    background: #1983FF;
+}

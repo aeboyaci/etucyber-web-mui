@@ -41,7 +41,7 @@ const Contact = () => {
     return (
         <React.Fragment>
             <Head>
-                <title>İletişim - Etucyber</title>
+                <title>İletişim ~ Etucyber</title>
             </Head>
             <MainLayout>
                 <Box style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('/contact.jpg')`}} className={"hero"}>
