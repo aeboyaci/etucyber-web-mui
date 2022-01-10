@@ -1,0 +1,27 @@
+.hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('/home.jpg');
+    height: calc(100vh - 68px);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    font-family: "Raleway";
+    font-weight: 700;
+    font-size: 4rem;
+}
+
+@media screen and (max-width: 600px){
+    .hero {
+        font-size: 3rem;
+    }
+}
+
+.isim {
+    text-align: center;
+    padding: 2px;
+}

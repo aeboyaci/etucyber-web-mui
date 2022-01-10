@@ -1,0 +1,16 @@
+.blogContainer {
+    padding-top: 24px;
+    margin-bottom: 2.5rem;
+    color: #333;
+    font-family: "Raleway";
+    font-weight: 400;
+    text-align: justify;
+    font-size: 1.1em;
+}
+
+.paper {
+    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

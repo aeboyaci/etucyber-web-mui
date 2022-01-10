@@ -1,0 +1,70 @@
+.appBar {
+    background-color: #ffffff;
+}
+
+.brandTitle {
+    padding: 15px;
+    font-family: "Raleway";
+    color: #333;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.brandTitle:hover {
+    cursor: pointer;
+}
+
+.navs {
+    margin-left: auto;
+}
+
+.navLink {
+    padding: 15px 10px 10px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-family: "Raleway";
+    color: #555;
+    text-transform: uppercase;
+}
+.navLink:hover {
+    color: #000;
+    border-bottom: solid 2px #000;
+    cursor: pointer;
+}
+
+.activeNavLink {
+    padding: 15px 10px 10px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-family: "Raleway";
+    text-transform: uppercase;
+    color: #000;
+    border-bottom: solid 2px #000;
+}
+.activeNavLink:hover {
+    cursor: pointer;
+}
+
+.list {
+    width: 250px;
+    font-family: "Raleway";
+    color: #555;
+    font-weight: 700;
+    text-transform: uppercase;
+ }
+
+.fullList {
+    width: auto;
+ }
+
+.menuButton {
+    margin-left: auto;
+    margin-right: 8px;
+ }
+
+.nav {
+    font-family: "Raleway";
+    color: #000;
+    font-weight: 700;
+    text-transform: uppercase;
+ }
