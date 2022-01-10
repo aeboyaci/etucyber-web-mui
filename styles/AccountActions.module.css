@@ -1,0 +1,32 @@
+.root {
+    min-height: 100vh;
+}
+
+.image {
+    background-image: url("/etucyber_yonetim.png");
+    background-repeat: no-repeat;
+    background-color: #FAFAFA;
+    background-size: cover;
+    background-position: center;
+}
+
+.paper {
+    margin: 64px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar {
+    margin: 8px;
+    background-color: #1983FF;
+}
+
+.form {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.submit {
+    margin: 24px 0 16px;
+}
