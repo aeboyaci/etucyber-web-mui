@@ -7,12 +7,16 @@ import { CacheProvider } from '@emotion/react';
 import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import "../styles/globals.css";
+import {useState} from "react";
+import {AuthContext} from "../components/AuthContext";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
+  const [user, setUser] = useState({displayName: "Ahmet Eren BOYACI"});
 
   return (
     <CacheProvider value={emotionCache}>
@@ -22,7 +26,9 @@ export default function MyApp(props) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Component {...pageProps} />
+        <AuthContext.Provider value={[user, setUser]}>
+            <Component {...pageProps} />
+        </AuthContext.Provider>
       </ThemeProvider>
     </CacheProvider>
   );
