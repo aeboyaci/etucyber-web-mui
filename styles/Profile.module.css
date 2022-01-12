@@ -20,3 +20,30 @@
 .submit {
     margin: 24px 0 16px;
 }
+
+.uploadOverlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 24px;
+    padding-left: 8px;
+    height: 80px;
+    width: 80px;
+    display: none;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    border-radius: 50%;
+}
+.uploadOverlay:hover {
+    cursor: pointer;
+}
+.uploadOverlay span {
+    color: white;
+    font-size: 12px;
+}
+
+.avatarWrapper {
+    position: relative;
+}
+.avatarWrapper:hover .uploadOverlay {
+    display: block;
+}

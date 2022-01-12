@@ -18,7 +18,7 @@ import {useRouter} from "next/router";
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 
-const Posts = () => {
+const Posts = ({ rows }) => {
     const router = useRouter();
 
     const [dialog, setDialog] = useState(false);
@@ -27,7 +27,7 @@ const Posts = () => {
         {
             field: 'id',
             headerName: '#',
-            width: 90,
+            width: 200,
             editable: false,
         },
         {
@@ -80,15 +80,6 @@ const Posts = () => {
             )
         },
     ];
-    const rows = [
-        {
-            id: "1",
-            title: "Malware Development - 1",
-            description: `Malware, “Malicious Software”ın kısaltılmış halidir. Zararlı yazılımlar da birer bilgisayar programıdır. Her program gibi zararlı yazılımlar da bir takım faaliyetleri yerine getirmek için çeşitli işlemler gerçekleştirir. Bu işlemler, kullanıcıya veyahut kullanıcının bilgisayarına zarar vermek amacıyla kimi zaman kurbanın dosyalarını şifrelemek (Ransomware – Fidye yazılımı), kimi zaman kullanıcın isteği ve izni olmadan kişisel ya da kritik verileri sızdırmak (Spyware) kimi zaman da kullanıcının cihazında reklam göstermek (Adware) olabilir.`,
-            isActive: true,
-            createdAt: "10/01/2022",
-        },
-    ];
 
     const deletePost = () => {
         // Delete  request to API
@@ -108,7 +99,6 @@ const Posts = () => {
                     rows={rows}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
-                    checkboxSelection={true}
                     disableSelectionOnClick={true}
                 />
                 <Dialog
@@ -137,5 +127,21 @@ const Posts = () => {
         </DashboardLayout>
     );
 };
+
+export async function getServerSideProps(context) {
+    const response = await fetch("http://localhost:3001/api/posts");
+    const posts = await response.json();
+    console.log(posts);
+
+    return {
+        props: {
+            rows: posts.map((post) => {
+                const id = post["_id"];
+                delete post["_id"];
+                return { ...post, id };
+            })
+        }
+    }
+}
 
 export default Posts;

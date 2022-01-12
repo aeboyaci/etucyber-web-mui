@@ -186,7 +186,7 @@ const SignUp = () => {
                                         Kayıt Ol
                                     </Button>
                                     <Grid item>
-                                        <Link href="/dashboard/sign-in" variant="body2">
+                                        <Link href="/account/sign-in" variant="body2">
                                             <a style={{color: "#1976D2"}}>{"Hesabın var mı? Buradan giriş yapın."}</a>
                                         </Link>
                                     </Grid>

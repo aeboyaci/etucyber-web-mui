@@ -24,10 +24,21 @@ const Profile = () => {
     const [alert, setAlert] = useState({ type: "", title: "", message: "" });
 
     const handleSubmit = (values, {resetForm}) => {
-        const file = fileRef.current.files[0];
-        console.log(file);
         console.log(values);
         resetForm();
+    };
+
+    const fileUpload = (e) => {
+        const file = fileRef.current.files[0];
+        console.log(file);
+
+        // API upload request
+        setAlert({
+            type: "success",
+            title: "Başarılı!",
+            message: "Profil resmi güncellendi."
+        });
+
         fileRef.current.value = "";
     };
 
@@ -39,7 +50,12 @@ const Profile = () => {
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
                 <div className={classes.paper}>
-                    <Avatar src={user.photoUrl} className={classes.avatar} />
+                    <div className={classes.avatarWrapper}>
+                        <Avatar src={user.photoUrl} className={classes.avatar} />
+                        <div onClick={() => document.getElementById("file")?.click()} className={classes.uploadOverlay}>
+                            <span>Resim Yükle</span>
+                        </div>
+                    </div>
                     <Typography component="h1" variant="h4">
                         Profil
                     </Typography>
@@ -120,22 +136,24 @@ const Profile = () => {
                                         style={{ display: "none" }}
                                         accept=".png,.jpg,.jpeg,.ico"
                                         ref={fileRef}
+                                        onChange={fileUpload}
                                     />
-                                    <Button
-                                        fullWidth
-                                        variant="contained"
-                                        color="primary"
-                                        className={classes.submit}
-                                        onClick={() => document.getElementById("file")?.click()}
-                                    >
-                                        Resim Yükle
-                                    </Button>
+                                    {/*<Button*/}
+                                    {/*    fullWidth*/}
+                                    {/*    variant="contained"*/}
+                                    {/*    color="primary"*/}
+                                    {/*    className={classes.submit}*/}
+                                    {/*    onClick={() => document.getElementById("file")?.click()}*/}
+                                    {/*>*/}
+                                    {/*    Resim Yükle*/}
+                                    {/*</Button>*/}
                                 </div>
                                 <Button
                                     type="submit"
                                     fullWidth
                                     variant="contained"
                                     color="primary"
+                                    sx={{ mt: 2 }}
                                 >
                                     Kaydet
                                 </Button>
