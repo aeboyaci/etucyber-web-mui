@@ -18,6 +18,9 @@ import {
 import Paper from '@mui/material/Paper';
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Head from "next/head";
+import axios from "axios";
+import {useAuth} from "../../components/AuthContext";
+import {useRouter} from "next/router";
 
 const validationSchema = Yup.object({
     email: Yup.string().required("E-mail adresi boş bırakılamaz.").email("Hatalı e-mail formatı."),
@@ -31,14 +34,31 @@ const initialValues = {
 
 const SignIn = () => {
     const [errorMessage, setErrorMessage] = useState("");
+    const router = useRouter();
 
-    const handleSubmit = (values, {resetForm}) => {
+    const handleSubmit = async (values, {resetForm}) => {
         if (!values.robot) {
             setErrorMessage("Lütfen robot olmadığınızı doğrulayın.");
             return;
         }
-        console.log(values);
+
+        const response = await fetch("http://localhost:3001/api/account/sign-in", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(values),
+            credentials: "include",
+        });
+        const data = await response.json();
+        
+        if (!data.success) {
+            setErrorMessage(data.message);
+            return;
+        }
         resetForm();
+
+        await router.push("/dashboard/create");
     };
 
     return (
@@ -100,6 +120,7 @@ const SignIn = () => {
                                             <Checkbox
                                                 checked={values.robot}
                                                 onChange={handleChange}
+                                                name={"robot"}
                                                 color="primary"
                                             />
                                         }

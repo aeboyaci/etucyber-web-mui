@@ -89,6 +89,19 @@ export default function DashboardLayout({children}) {
 
     const [user, setUser] = useAuth();
 
+    const logout = async () => {
+        await fetch("http://localhost:3001/api/account/logout", {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Cache': 'no-cache',
+            },
+            credentials: "include",
+        })
+        await router.push("/account/sign-in");
+    };
+
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
@@ -173,7 +186,7 @@ export default function DashboardLayout({children}) {
                         </ListItemIcon>
                         <ListItemText primary={labels["profile"]}/>
                     </ListItem>
-                    <ListItem button>
+                    <ListItem button onClick={logout}>
                         <ListItemIcon>
                             <LogoutIcon/>
                         </ListItemIcon>

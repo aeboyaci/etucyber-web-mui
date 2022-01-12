@@ -16,7 +16,12 @@ const Edit = ({ post }) => {
 
 export async function getServerSideProps(context) {
     const { id } = context.params;
-    const response = await fetch("http://localhost:3001/api/posts/by-id/" + id);
+    const response = await fetch("http://localhost:3001/api/posts/by-id/" + id, {
+        headers: {
+            "cookie": `token=${context.req.cookies["token"]}`,
+            credentials: "include",
+        }
+    });
     const data = await response.json();
 
     if (!data.success) {

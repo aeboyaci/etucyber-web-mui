@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import {DataGrid} from "@mui/x-data-grid";
 import {
+    Alert,
     Button,
     Dialog,
     DialogActions,
     DialogContent,
     DialogContentText,
     DialogTitle,
-    IconButton,
+    IconButton, Snackbar,
     Tooltip
 } from "@mui/material";
 import DashboardLayout from "../../components/DashboardLayout";
@@ -18,10 +19,13 @@ import {useRouter} from "next/router";
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 
-const Posts = ({ rows }) => {
+const Posts = ({ serverData }) => {
     const router = useRouter();
 
+    const [rows, setRows] = useState(serverData);
     const [dialog, setDialog] = useState(false);
+    const [snackbar, setSnackbar] = useState(false);
+    const [id, setId] = useState("");
 
     const columns = [
         {
@@ -73,7 +77,10 @@ const Posts = ({ rows }) => {
                     <IconButton onClick={() => router.push("/dashboard/edit/" + params.row.id)} aria-label="edit">
                         <EditIcon />
                     </IconButton>
-                    <IconButton onClick={() => setDialog(true)} aria-label="delete">
+                    <IconButton onClick={() => {
+                        setId(params.row.id);
+                        setDialog(true);
+                    }} aria-label="delete">
                         <DeleteIcon />
                     </IconButton>
                 </div>
@@ -81,10 +88,26 @@ const Posts = ({ rows }) => {
         },
     ];
 
-    const deletePost = () => {
-        // Delete  request to API
-        console.log("delete");
+    const handleSnackbarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setSnackbar(false);
+    };
+
+    const deletePost = async () => {
+        console.log(id);
+        const response = await fetch("http://localhost:3001/api/posts/delete/by-id/" + id, {
+            credentials: "include",
+        });
+        const data = await response.json();
+
+        setRows([...rows.filter((r) => r.id !== id)]);
+
+        setSnackbar(true);
         setDialog(false);
+        setId("");
     };
 
     return (
@@ -117,25 +140,41 @@ const Posts = ({ rows }) => {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => setDialog(false)}>Hayır</Button>
+                        <Button onClick={() => {
+                            setId("");
+                            setDialog(false);
+                        }}>Hayır</Button>
                         <Button onClick={deletePost} autoFocus>
                             Evet
                         </Button>
                     </DialogActions>
                 </Dialog>
+                <Snackbar open={snackbar} autoHideDuration={6000} onClose={handleSnackbarClose}>
+                    <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
+                        Gönderi başarılı bir şekilde silindi.
+                    </Alert>
+                </Snackbar>
             </div>
         </DashboardLayout>
     );
 };
 
 export async function getServerSideProps(context) {
-    const response = await fetch("http://localhost:3001/api/posts");
+    const response = await fetch("http://localhost:3001/api/posts/my-posts", {
+        method: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'cookie': `token=${context.req.cookies["token"]}`
+        },
+        credentials: "include",
+    });
     const posts = await response.json();
     console.log(posts);
 
     return {
         props: {
-            rows: posts.map((post) => {
+            serverData: posts.map((post) => {
                 const id = post["_id"];
                 delete post["_id"];
                 return { ...post, id };

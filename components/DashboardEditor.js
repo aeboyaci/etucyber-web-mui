@@ -15,7 +15,8 @@ const DashboardEditor = ({ mode, info }) => {
     const router = useRouter();
 
     const [value, setValue] = useState(info ? info.html : "");
-    const initialValues = info ?
+    const [initialValues, _] = useState(
+        info ?
         {
             title: info.title,
             imageUrl: info.imageUrl,
@@ -28,17 +29,39 @@ const DashboardEditor = ({ mode, info }) => {
             imageUrl: "",
             description: "",
             isActive: false
-        };
+        }
+    );
 
     const [alert, setAlert] = useState({ type: "", title: "", message: "" });
 
-    const handleChange = (content, editor) => {
+    const handleHtmlChange = (content, editor) => {
+        console.log(content);
         setValue(content);
     };
 
-    const handleSubmit = (values, {resetForm}) => {
-        console.log(values);
-        resetForm();
+    const handleSubmit = async (values, {resetForm}) => {
+        let apiUrl = mode === "create" ? "http://localhost:3001/api/posts" : "http://localhost:3001/api/posts/by-id/" + info["_id"];
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({...values, html: value}),
+            credentials: "include",
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            setAlert({ type: "success", title: "Başarılı!", message: data.message });
+        }
+        else {
+            setAlert({ type: "error", title: "Hata!", message: data.message });
+        }
+
+        if (mode === "create") {
+            resetForm();
+            setValue("");
+        }
     };
 
     return (
@@ -79,6 +102,7 @@ const DashboardEditor = ({ mode, info }) => {
                                 variant="outlined"
                                 fullWidth
                                 style={{ marginBottom: "1rem", backgroundColor: "white" }}
+                                autoComplete={"off"}
                             />
                             <TextField
                                 value={values.description}
@@ -93,6 +117,7 @@ const DashboardEditor = ({ mode, info }) => {
                                 multiline
                                 rows={5}
                                 style={{ marginBottom: "1rem", backgroundColor: "white" }}
+                                autoComplete={"off"}
                             />
                             <FormControlLabel
                                 control={
@@ -108,7 +133,8 @@ const DashboardEditor = ({ mode, info }) => {
                                 sx={{ mb: 2 }}
                             />
                             <Editor
-                                initialValue={value}
+                                initialValue={info ? info.html : ""}
+                                value={value}
                                 apiKey="v8v2r3xiyn3wbvbjzs21anpm4y1zfz06y4a9ezccjzp6tccy"
                                 init={{
                                     height: "450",
@@ -134,7 +160,7 @@ const DashboardEditor = ({ mode, info }) => {
                                     toolbar:
                                         "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor casechange removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment",
                                 }}
-                                onEditorChange={handleChange}
+                                onEditorChange={handleHtmlChange}
                             />
                         </Grid>
                     </Grid>
