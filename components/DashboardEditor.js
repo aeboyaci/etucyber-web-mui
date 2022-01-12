@@ -40,7 +40,7 @@ const DashboardEditor = ({ mode, info }) => {
     };
 
     const handleSubmit = async (values, {resetForm}) => {
-        let apiUrl = mode === "create" ? "http://localhost:3001/api/posts" : "http://localhost:3001/api/posts/by-id/" + info["_id"];
+        let apiUrl = mode === "create" ? "http://92.205.16.57:3001/api/posts" : "http://92.205.16.57:3001/api/posts/by-id/" + info["_id"];
         const response = await fetch(apiUrl, {
             method: "POST",
             headers: {
