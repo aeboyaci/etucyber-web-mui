@@ -15,6 +15,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Head from "next/head";
 import {useRouter} from "next/router";
+import DoneIcon from '@mui/icons-material/Done';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Posts = () => {
     const router = useRouter();
@@ -50,13 +52,16 @@ const Posts = () => {
             field: "isActive",
             headerName: "Aktif",
             width: 75,
-            editable: false
+            editable: false,
+            renderCell: (params) => (
+                params.row.isActive ? <DoneIcon sx={{ mx: "auto" }} /> : <CloseIcon sx={{ mx: "auto" }} />
+            )
         },
         {
             field: "createdAt",
             headerName: "Tarih",
             width: 150,
-            editable: false
+            editable: false,
         },
         {
             field: "actions",
