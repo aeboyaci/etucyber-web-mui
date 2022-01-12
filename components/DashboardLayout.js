@@ -121,7 +121,7 @@ export default function DashboardLayout({children}) {
                     </Typography>
                     <Avatar
                         alt="Remy Sharp"
-                        src="https://avatars.githubusercontent.com/u/53049910?s=400&u=ba57f691b0e6d4202f7625ea66de69e5c6c90bed&v=4"
+                        src={user.photoUrl}
                         sx={{
                             height: 48,
                             width: 48,

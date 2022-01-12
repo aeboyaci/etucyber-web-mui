@@ -16,7 +16,7 @@ const clientSideEmotionCache = createEmotionCache();
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
-  const [user, setUser] = useState({displayName: "Ahmet Eren BOYACI"});
+  const [user, setUser] = useState({displayName: "Ahmet Eren BOYACI", photoUrl: "https://avatars.githubusercontent.com/u/53049910?s=400&u=ba57f691b0e6d4202f7625ea66de69e5c6c90bed&v=4"});
 
   return (
     <CacheProvider value={emotionCache}>
