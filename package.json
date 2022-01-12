@@ -17,6 +17,7 @@
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "@mui/styles": "^5.2.3",
+    "@mui/x-data-grid": "^5.0.0-beta.7",
     "@tinymce/tinymce-react": "^3.13.0",
     "clsx": "^1.1.1",
     "crypto-random-string": "^4.0.0",

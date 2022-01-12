@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Editor } from "@tinymce/tinymce-react";
-import {Alert, AlertTitle, Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
+import {Alert, AlertTitle, Button, Checkbox, FormControlLabel, Grid, TextField} from "@mui/material";
 import {useRouter} from "next/router";
 import {Formik, Form} from "formik";
 import * as Yup from "yup";
@@ -45,8 +45,8 @@ const DashboardEditor = ({ mode, info }) => {
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
             {({values, touched, errors, handleChange, handleBlur, handleSubmit}) => (
                 <Form onSubmit={handleSubmit}>
-                    <div className="row">
-                        <div className="col col-md-8 mx-auto">
+                    <Grid container justifyContent={"center"}>
+                        <Grid item>
                             {alert.type && (
                                 <Alert
                                     style={{ marginBottom: "1.2rem" }}
@@ -136,8 +136,8 @@ const DashboardEditor = ({ mode, info }) => {
                                 }}
                                 onEditorChange={handleChange}
                             />
-                        </div>
-                    </div>
+                        </Grid>
+                    </Grid>
                     <div style={{ marginTop: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <Button
                             type="submit"

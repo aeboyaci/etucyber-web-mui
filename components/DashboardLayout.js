@@ -73,7 +73,7 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
 const labels = {
     create: "Gönderi Oluştur",
     edit: "Gönderi Düzenle",
-    posts: "Gönderilerimi Listele",
+    posts: "Gönderilerim",
     invite: "Davet Kodu Oluştur",
     profile: "Profil",
 };

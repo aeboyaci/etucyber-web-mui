@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Alert, AlertTitle, Button, Grid, Typography} from "@mui/material";
 import DashboardLayout from "../../components/DashboardLayout";
 import cryptoRandomString from 'crypto-random-string';
+import Head from "next/head";
 
 const Invite = () => {
     const [code, setCode] = useState("-");
@@ -22,6 +23,9 @@ const Invite = () => {
 
     return (
         <DashboardLayout>
+            <Head>
+                <title>Davet Kodu Oluştur ~ Etucyber</title>
+            </Head>
             <Grid
                 container
                 direction="row"

@@ -75,3 +75,9 @@ a {
     color: white;
     background: #1983FF;
 }
+
+.table-cell-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
