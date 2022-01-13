@@ -18,7 +18,6 @@ import {
 import Paper from '@mui/material/Paper';
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Head from "next/head";
-import axios from "axios";
 import {useAuth} from "../../components/AuthContext";
 import {useRouter} from "next/router";
 
@@ -36,13 +35,15 @@ const SignIn = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const router = useRouter();
 
+    const [user, setUser] = useAuth();
+
     const handleSubmit = async (values, {resetForm}) => {
         if (!values.robot) {
             setErrorMessage("Lütfen robot olmadığınızı doğrulayın.");
             return;
         }
 
-        const response = await fetch("http://92.205.16.57:3001/api/account/sign-in", {
+        const response = await fetch("http://localhost:3001/api/account/sign-in", {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -57,6 +58,7 @@ const SignIn = () => {
             return;
         }
         resetForm();
+        setUser({displayName: data.displayName, photoUrl: data.photoUrl});
 
         await router.push("/dashboard/create");
     };

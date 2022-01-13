@@ -90,7 +90,7 @@ export default function DashboardLayout({children}) {
     const [user, setUser] = useAuth();
 
     const logout = async () => {
-        await fetch("http://92.205.16.57:3001/api/account/logout", {
+        await fetch("http://localhost:3001/api/account/logout", {
             method: "GET",
             headers: {
                 'Accept': 'application/json',

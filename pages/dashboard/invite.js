@@ -11,13 +11,24 @@ const Invite = () => {
         title: "",
         message: "",
     });
-    const generate = () => {
+    const generate = async () => {
         const tmp = cryptoRandomString({ length: 12 });
         setCode(tmp);
+
+        const response = await fetch("http://localhost:3001/api/invite", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ inviteCode: tmp }),
+            credentials: "include",
+        });
+        const data = await response.json();
+
         setMessage({
-            type: "success",
-            title: "Başarılı!",
-            message: "Davet kodu oluşturuldu."
+            type: data.success ? "success" : "error",
+            title: data.success ? "Başarılı!" : "Hata!",
+            message: data.message,
         });
     };
 

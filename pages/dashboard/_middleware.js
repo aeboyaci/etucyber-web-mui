@@ -1,7 +1,7 @@
 import {NextResponse} from "next/server";
 
 export async function middleware(req, ev) {
-    const response = await fetch("http://92.205.16.57:3001/api/account/validate", {
+    const response = await fetch("http://localhost:3001/api/account/validate", {
         method: "GET",
         headers: {
             'Accept': 'application/json',

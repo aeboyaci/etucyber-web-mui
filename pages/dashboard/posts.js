@@ -98,7 +98,7 @@ const Posts = ({ serverData }) => {
 
     const deletePost = async () => {
         console.log(id);
-        const response = await fetch("http://92.205.16.57:3001/api/posts/delete/by-id/" + id, {
+        const response = await fetch("http://localhost:3001/api/posts/delete/by-id/" + id, {
             credentials: "include",
         });
         const data = await response.json();
@@ -160,7 +160,7 @@ const Posts = ({ serverData }) => {
 };
 
 export async function getServerSideProps(context) {
-    const response = await fetch("http://92.205.16.57:3001/api/posts/my-posts", {
+    const response = await fetch("http://localhost:3001/api/posts/my-posts", {
         method: "GET",
         headers: {
             'Accept': 'application/json',

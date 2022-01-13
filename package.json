@@ -23,6 +23,7 @@
     "clsx": "^1.1.1",
     "crypto-random-string": "^4.0.0",
     "formik": "^2.2.9",
+    "js-cookie": "^3.0.1",
     "next": "latest",
     "prismjs": "^1.26.0",
     "prop-types": "latest",

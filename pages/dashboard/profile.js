@@ -28,18 +28,27 @@ const Profile = () => {
         resetForm();
     };
 
-    const fileUpload = (e) => {
+    const fileUpload = async (e) => {
         const file = fileRef.current.files[0];
         console.log(file);
 
         // API upload request
+        let formData = new FormData();
+        formData.append("profilePic", file);
+        const response = await fetch("http://localhost:3001/api/account/profile-update/change-avatar", {
+            method: "POST",
+            body: formData,
+            credentials: "include",
+        });
+        const data = await response.json();
+
         setAlert({
-            type: "success",
-            title: "Başarılı!",
-            message: "Profil resmi güncellendi."
+            type: data.success ?  "success" : "error",
+            title: data.success ?  "Başarılı!" : "Hata!",
+            message: data.message,
         });
 
-        fileRef.current.value = "";
+        e.target.value = "";
     };
 
     return (
