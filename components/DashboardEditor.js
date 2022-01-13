@@ -40,7 +40,7 @@ const DashboardEditor = ({ mode, info }) => {
     };
 
     const handleSubmit = async (values, {resetForm}) => {
-        let apiUrl = mode === "create" ? "http://etucyber.com:3001/api/posts" : "http://etucyber.com:3001/api/posts/by-id/" + info["_id"];
+        let apiUrl = mode === "create" ? "https://api.etucyber.com/api/posts" : "https://api.etucyber.com/api/posts/by-id/" + info["_id"];
         const response = await fetch(apiUrl, {
             method: "POST",
             headers: {

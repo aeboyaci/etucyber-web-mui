@@ -48,7 +48,7 @@ const Blog = ({ posts }) => {
 };
 
 export async function getStaticProps(context) {
-    const response = await fetch("http://etucyber.com:3001/api/posts");
+    const response = await fetch("https://api.etucyber.com/api/posts");
     const posts = await response.json();
 
     return {

@@ -43,7 +43,7 @@ const SignIn = () => {
             return;
         }
 
-        const response = await fetch("http://etucyber.com:3001/api/account/sign-in", {
+        const response = await fetch("https://api.etucyber.com/api/account/sign-in", {
             headers: {
                 "Content-Type": "application/json",
             },

@@ -90,7 +90,7 @@ export default function DashboardLayout({children}) {
     const [user, setUser] = useAuth();
 
     const logout = async () => {
-        await fetch("http://etucyber.com:3001/api/account/logout", {
+        await fetch("https://api.etucyber.com/api/account/logout", {
             method: "GET",
             headers: {
                 'Accept': 'application/json',
