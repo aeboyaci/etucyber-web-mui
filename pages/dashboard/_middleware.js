@@ -1,6 +1,8 @@
 import {NextResponse} from "next/server";
 
 export async function middleware(req, ev) {
+    console.log(req.cookies);
+
     const response = await fetch("https://api.etucyber.com/api/account/validate", {
         method: "GET",
         headers: {
