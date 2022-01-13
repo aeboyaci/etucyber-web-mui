@@ -15,7 +15,7 @@ const Invite = () => {
         const tmp = cryptoRandomString({ length: 12 });
         setCode(tmp);
 
-        const response = await fetch("http://localhost:3001/api/invite", {
+        const response = await fetch("http://etucyber.com:3001/api/invite", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

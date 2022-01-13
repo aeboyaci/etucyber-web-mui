@@ -89,7 +89,7 @@ const BlogPost = ({post}) => {
 
 export async function getStaticProps(context) {
     const {title} = context.params;
-    const response = await fetch("http://localhost:3001/api/posts/" + title);
+    const response = await fetch("http://etucyber.com:3001/api/posts/" + title);
     const post = await response.json();
 
     return {
@@ -99,7 +99,7 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-    const response = await fetch("http://localhost:3001/api/posts");
+    const response = await fetch("http://etucyber.com:3001/api/posts");
     const posts = await response.json();
     const paths = posts.map((post) => {
         return {params: {title: post.title}};

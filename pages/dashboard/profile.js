@@ -35,7 +35,7 @@ const Profile = () => {
         // API upload request
         let formData = new FormData();
         formData.append("profilePic", file);
-        const response = await fetch("http://localhost:3001/api/account/profile-update/change-avatar", {
+        const response = await fetch("http://etucyber.com:3001/api/account/profile-update/change-avatar", {
             method: "POST",
             body: formData,
             credentials: "include",
