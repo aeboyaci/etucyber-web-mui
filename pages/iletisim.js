@@ -33,9 +33,25 @@ const initialValues = {
 const Contact = () => {
     const [alert, setAlert] = useState({ type: "", title: "", message: "" });
 
-    const handleSubmit = (values, {resetForm}) => {
-        console.log(values);
-        resetForm();
+    const handleSubmit = async (values, {resetForm}) => {
+        let body = {...values};
+        delete body.okay;
+
+        const response = await fetch("https://api.etucyber.com/api/contact", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            setAlert({type: "success", title: "Başarılı!", message: data.message});
+        }
+        else {
+            setAlert({type: "error", title: "Hata!", message: data.message});
+        }
     };
 
     return (

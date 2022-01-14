@@ -23,6 +23,7 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import KeyIcon from '@mui/icons-material/Key';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 
 const drawerWidth = 240;
 
@@ -75,6 +76,7 @@ const labels = {
     edit: "Gönderi Düzenle",
     posts: "Gönderilerim",
     invite: "Davet Kodu Oluştur",
+    contacts: "İletişim Mesajları",
     profile: "Profil",
 };
 
@@ -176,6 +178,12 @@ export default function DashboardLayout({children}) {
                             <KeyIcon />
                         </ListItemIcon>
                         <ListItemText primary={labels["invite"]}/>
+                    </ListItem>
+                    <ListItem button onClick={() => router.push("/dashboard/contacts")}>
+                        <ListItemIcon>
+                            <ConnectWithoutContactIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={labels["contacts"]}/>
                     </ListItem>
                 </List>
                 <Divider/>

@@ -1,0 +1,11 @@
+.root {
+    min-width: 275px;
+}
+
+.title {
+    font-size: 14px;
+}
+
+.pos {
+    margin-bottom: 12px;
+}
