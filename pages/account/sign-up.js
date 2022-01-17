@@ -201,6 +201,7 @@ const SignUp = () => {
                                                         checked={values.robot}
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}
+                                                        name="robot"
                                                         color="primary"
                                                     />
                                                 }
