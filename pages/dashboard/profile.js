@@ -187,6 +187,9 @@ const Profile = () => {
                                                 <TextField
                                                     value={values.oldPassword}
                                                     onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    error={touched.oldPassword && Boolean(errors.oldPassword)}
+                                                    helperText={touched.oldPassword && errors.oldPassword}
                                                     variant="outlined"
                                                     fullWidth
                                                     name="oldPassword"
@@ -202,6 +205,8 @@ const Profile = () => {
                                                     value={values.newPassword}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
+                                                    error={touched.newPassword && Boolean(errors.newPassword)}
+                                                    helperText={touched.newPassword && errors.newPassword}
                                                     variant="outlined"
                                                     fullWidth
                                                     name="newPassword"
@@ -214,9 +219,11 @@ const Profile = () => {
                                             </Grid>
                                         </React.Fragment>
                                         :
-                                        <Typography onClick={enablePasswordChange} sx={{ color: theme.palette.primary.main, ":hover": { cursor: "pointer" } }}>
-                                            Parolayı değiştir
-                                        </Typography>
+                                        <Grid item xs={12}>
+                                            <Typography onClick={enablePasswordChange} sx={{ color: theme.palette.primary.main, ":hover": { cursor: "pointer" } }}>
+                                                Parolayı değiştir
+                                            </Typography>
+                                        </Grid>
                                     }
                                 </Grid>
                                 <div>
