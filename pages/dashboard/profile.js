@@ -46,8 +46,8 @@ const Profile = () => {
         setValidationSchema(
             Yup.object({
                 email: Yup.string().email("Hatalı e-mail formatı."),
-                oldPassword: Yup.string().required("Parola boş bırakılamaz."),
-                newPassword: Yup.string().required("Parola doğrulama boş bırakılamaz.").min(8, "Parola en az 8 karakter olmalıdır.")
+                oldPassword: Yup.string().required("Eski parola boş bırakılamaz."),
+                newPassword: Yup.string().required("Yeni parola boş bırakılamaz.").min(8, "Parola en az 8 karakter olmalıdır.")
             })
         );
     };
