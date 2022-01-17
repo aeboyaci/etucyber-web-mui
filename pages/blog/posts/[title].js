@@ -3,7 +3,7 @@ import {Box, Container, Grid} from "@mui/material";
 import classes from "../../../styles/BlogPostDetail.module.css";
 import MainLayout from "../../../components/MainLayout";
 import Head from "next/head";
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 import Prism from "prismjs";
 import "prismjs/themes/prism-tomorrow.css";
 import "prismjs/components/prism-c";
@@ -21,8 +21,6 @@ import "prismjs/components/prism-python";
 // C, C++, C#, Java, JavaScript, JSX, PHP, Go, Rust, Python
 
 const BlogPost = ({post}) => {
-    const [domPurify, setDomPurify] = useState(null);
-
     useEffect(() => {
         Prism.highlightAll();
         if (typeof document !== "undefined") {
@@ -58,10 +56,6 @@ const BlogPost = ({post}) => {
                 count++;
             }
         }
-
-        if (typeof window !== "undefined") {
-            setDomPurify(DOMPurify(window));
-        }
     }, []);
 
     return (
@@ -80,13 +74,10 @@ const BlogPost = ({post}) => {
                         <Container className={classes.blogContainer} maxWidth="lg">
                             <Grid container justifyContent="center">
                                 <Grid item xs={12} sm={8}>
-                                    {
-                                        Boolean(domPurify) &&
-                                        <div
-                                            id="postContent"
-                                            dangerouslySetInnerHTML={{__html: domPurify.sanitize(post.html)}}
-                                        />
-                                    }
+                                    <div
+                                        id="postContent"
+                                        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(post.html)}}
+                                    />
                                 </Grid>
                             </Grid>
                         </Container>
