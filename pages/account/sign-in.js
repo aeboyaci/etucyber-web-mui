@@ -13,13 +13,14 @@ import {
     Typography,
     Alert,
     AlertTitle,
-    Avatar
+    Avatar, IconButton, Collapse
 } from "@mui/material";
 import Paper from '@mui/material/Paper';
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Head from "next/head";
 import {useAuth} from "../../components/AuthContext";
 import {useRouter} from "next/router";
+import CloseIcon from "@mui/icons-material/Close";
 
 const validationSchema = Yup.object({
     email: Yup.string().required("E-mail adresi boş bırakılamaz.").email("Hatalı e-mail formatı."),
@@ -33,6 +34,7 @@ const initialValues = {
 
 const SignIn = () => {
     const [errorMessage, setErrorMessage] = useState("");
+    const [alertOpen, setAlertOpen] = useState(false);
     const router = useRouter();
 
     const [user, setUser] = useAuth();
@@ -55,6 +57,7 @@ const SignIn = () => {
         
         if (!data.success) {
             setErrorMessage(data.message);
+            setAlertOpen(true);
             return;
         }
         resetForm();
@@ -82,12 +85,26 @@ const SignIn = () => {
                         <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
                             {({values, touched, errors, handleChange, handleBlur, handleSubmit}) => (
                                 <Form className={classes.form} onSubmit={handleSubmit}>
-                                    {errorMessage && (
-                                        <Alert style={{ marginTop: "1rem" }} severity="error">
-                                            <AlertTitle>Hata</AlertTitle>
+                                    <Collapse in={alertOpen}>
+                                        <Alert
+                                            sx={{ mb: 2 }}
+                                            severity="error"
+                                            action={
+                                                <IconButton
+                                                    aria-label="close"
+                                                    color="inherit"
+                                                    size="small"
+                                                    onClick={() => {
+                                                        setAlertOpen(false);
+                                                    }}
+                                                >
+                                                    <CloseIcon fontSize="inherit" />
+                                                </IconButton>
+                                            }
+                                        >
                                             {errorMessage}
                                         </Alert>
-                                    )}
+                                    </Collapse>
                                     <TextField
                                         value={values.email}
                                         onChange={handleChange}

@@ -12,9 +12,10 @@ import {
     Checkbox,
     Button,
     Alert,
-    AlertTitle,
+    AlertTitle, IconButton, Collapse,
 } from "@mui/material";
 import classes from "../styles/Contact.module.css";
+import CloseIcon from "@mui/icons-material/Close";
 
 const validationSchema = Yup.object({
     firstName: Yup.string().required("Ad boş bırakılamaz."),
@@ -32,6 +33,7 @@ const initialValues = {
 
 const Contact = () => {
     const [alert, setAlert] = useState({ type: "", title: "", message: "" });
+    const [alertOpen, setAlertOpen] = useState(false);
 
     const handleSubmit = async (values, {resetForm}) => {
         let body = {...values};
@@ -48,10 +50,12 @@ const Contact = () => {
 
         if (data.success) {
             setAlert({type: "success", title: "Başarılı!", message: data.message});
+            resetForm();
         }
         else {
             setAlert({type: "error", title: "Hata!", message: data.message});
         }
+        setAlertOpen(true);
     };
 
     return (
@@ -71,15 +75,26 @@ const Contact = () => {
                                     <Formik onSubmit={handleSubmit} initialValues={initialValues} validationSchema={validationSchema}>
                                         {({values, touched, errors, handleChange, handleBlur, handleSubmit}) => (
                                             <Form className={classes.form} onSubmit={handleSubmit}>
-                                                {alert.type && (
+                                                <Collapse in={alertOpen}>
                                                     <Alert
-                                                        style={{ marginBottom: "1.2rem" }}
+                                                        sx={{ mb: 2 }}
                                                         severity={alert.type === "success" ? `success` : `error`}
+                                                        action={
+                                                            <IconButton
+                                                                aria-label="close"
+                                                                color="inherit"
+                                                                size="small"
+                                                                onClick={() => {
+                                                                    setAlertOpen(false);
+                                                                }}
+                                                            >
+                                                                <CloseIcon fontSize="inherit" />
+                                                            </IconButton>
+                                                        }
                                                     >
-                                                        <AlertTitle>{alert.title}</AlertTitle>
                                                         {alert.message}
                                                     </Alert>
-                                                )}
+                                                </Collapse>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12} sm={6}>
                                                         <TextField

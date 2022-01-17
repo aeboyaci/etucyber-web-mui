@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {Alert, AlertTitle, Button, Grid, Typography} from "@mui/material";
+import {Alert, Button, Collapse, Grid, IconButton, Typography} from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import DashboardLayout from "../../components/DashboardLayout";
 import cryptoRandomString from 'crypto-random-string';
 import Head from "next/head";
@@ -11,6 +12,8 @@ const Invite = () => {
         title: "",
         message: "",
     });
+    const [alertOpen, setAlertOpen] = useState(false);
+
     const generate = async () => {
         const tmp = cryptoRandomString({ length: 12 });
         setCode(tmp);
@@ -30,6 +33,7 @@ const Invite = () => {
             title: data.success ? "Başarılı!" : "Hata!",
             message: data.message,
         });
+        setAlertOpen(true);
     };
 
     return (
@@ -52,15 +56,26 @@ const Invite = () => {
                         justifyContent="center"
                     >
                         <Grid item xs={6}>
-                            {message.type && (
+                            <Collapse in={alertOpen}>
                                 <Alert
-                                    style={{ marginBottom: "1.2rem" }}
+                                    sx={{ mb: 2 }}
                                     severity={message.type === "success" ? `success` : `error`}
+                                    action={
+                                        <IconButton
+                                            aria-label="close"
+                                            color="inherit"
+                                            size="small"
+                                            onClick={() => {
+                                                setAlertOpen(false);
+                                            }}
+                                        >
+                                            <CloseIcon fontSize="inherit" />
+                                        </IconButton>
+                                    }
                                 >
-                                    <AlertTitle>{message.title}</AlertTitle>
                                     {message.message}
                                 </Alert>
-                            )}
+                            </Collapse>
                             <Typography style={{ marginBottom: "1.2rem" }} variant="h3">
                                 {code}
                             </Typography>

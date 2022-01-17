@@ -1,11 +1,23 @@
 import React, {createRef, useRef, useState} from 'react';
 import classes from "../../styles/Profile.module.css";
 import DashboardLayout from "../../components/DashboardLayout";
-import {CssBaseline, Container, Avatar, Typography, Grid, TextField, Button, Alert, AlertTitle} from "@mui/material";
+import {
+    CssBaseline,
+    Container,
+    Avatar,
+    Typography,
+    Grid,
+    TextField,
+    Button,
+    Alert,
+    AlertTitle,
+    IconButton, Collapse
+} from "@mui/material";
 import {useAuth} from "../../components/AuthContext";
 import {Formik, Form} from "formik";
 import * as Yup from "yup";
 import Head from "next/head";
+import CloseIcon from "@mui/icons-material/Close";
 
 const validationSchema = Yup.object({
     email: Yup.string().email("Hatalı e-mail formatı."),
@@ -22,6 +34,7 @@ const Profile = () => {
 
     const fileRef = createRef();
     const [alert, setAlert] = useState({ type: "", title: "", message: "" });
+    const [alertOpen, setAlertOpen] = useState(false);
 
     const handleSubmit = (values, {resetForm}) => {
         console.log(values);
@@ -47,6 +60,7 @@ const Profile = () => {
             title: data.success ?  "Başarılı!" : "Hata!",
             message: data.message,
         });
+        setAlertOpen(true);
 
         e.target.value = "";
     };
@@ -71,15 +85,26 @@ const Profile = () => {
                     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                         {({values, touched, errors, handleChange, handleBlur, handleSubmit}) => (
                             <Form className={classes.form} onSubmit={handleSubmit}>
-                                {alert.type && (
+                                <Collapse in={alertOpen}>
                                     <Alert
-                                        style={{ marginBottom: "1.2rem" }}
+                                        sx={{ mb: 2 }}
                                         severity={alert.type === "success" ? `success` : `error`}
+                                        action={
+                                            <IconButton
+                                                aria-label="close"
+                                                color="inherit"
+                                                size="small"
+                                                onClick={() => {
+                                                    setAlertOpen(false);
+                                                }}
+                                            >
+                                                <CloseIcon fontSize="inherit" />
+                                            </IconButton>
+                                        }
                                     >
-                                        <AlertTitle>{alert.title}</AlertTitle>
                                         {alert.message}
                                     </Alert>
-                                )}
+                                </Collapse>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
                                         <TextField

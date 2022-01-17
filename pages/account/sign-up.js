@@ -11,13 +11,14 @@ import {
     Typography,
     Alert,
     AlertTitle,
-    Avatar
+    Avatar, IconButton, Collapse
 } from "@mui/material";
 import Paper from '@mui/material/Paper';
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Link from "next/link";
 import {Formik, Form} from "formik";
 import * as Yup from "yup";
+import CloseIcon from "@mui/icons-material/Close";
 
 const validationSchema = Yup.object({
     firstName: Yup.string().required("Ad boş bırakılamaz."),
@@ -39,10 +40,12 @@ const initialValues = {
 
 const SignUp = () => {
     const [errorMessage, setErrorMessage] = useState("");
+    const [alertOpen, setAlertOpen] = useState(false);
 
     const handleSubmit = (values, {resetForm}) => {
         if (!values.robot) {
             setErrorMessage("Lütfen robot olmadığınızı doğrulayın.");
+            setAlertOpen(true);
             return;
         }
         console.log(values);
@@ -71,12 +74,26 @@ const SignUp = () => {
                                 <Form className={classes.form} onSubmit={handleSubmit}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>
-                                            {errorMessage && (
-                                                <Alert style={{marginBottom: "1.2rem"}} severity="error">
-                                                    <AlertTitle>Error</AlertTitle>
+                                            <Collapse in={alertOpen}>
+                                                <Alert
+                                                    sx={{ mb: 2 }}
+                                                    severity="error"
+                                                    action={
+                                                        <IconButton
+                                                            aria-label="close"
+                                                            color="inherit"
+                                                            size="small"
+                                                            onClick={() => {
+                                                                setAlertOpen(false);
+                                                            }}
+                                                        >
+                                                            <CloseIcon fontSize="inherit" />
+                                                        </IconButton>
+                                                    }
+                                                >
                                                     {errorMessage}
                                                 </Alert>
-                                            )}
+                                            </Collapse>
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
                                             <TextField

@@ -1,9 +1,20 @@
 import React, {useState} from 'react';
 import { Editor } from "@tinymce/tinymce-react";
-import {Alert, AlertTitle, Button, Checkbox, FormControlLabel, Grid, TextField} from "@mui/material";
+import {
+    Alert,
+    AlertTitle,
+    Button,
+    Checkbox,
+    Collapse,
+    FormControlLabel,
+    Grid,
+    IconButton,
+    TextField
+} from "@mui/material";
 import {useRouter} from "next/router";
 import {Formik, Form} from "formik";
 import * as Yup from "yup";
+import CloseIcon from "@mui/icons-material/Close";
 
 const validationSchema = Yup.object({
     title: Yup.string().required("Başlık boş bırakılamaz."),
@@ -33,6 +44,7 @@ const DashboardEditor = ({ mode, info }) => {
     );
 
     const [alert, setAlert] = useState({ type: "", title: "", message: "" });
+    const [alertOpen, setAlertOpen] = useState(false);
 
     const handleHtmlChange = (content, editor) => {
         console.log(content);
@@ -57,6 +69,7 @@ const DashboardEditor = ({ mode, info }) => {
         else {
             setAlert({ type: "error", title: "Hata!", message: data.message });
         }
+        setAlertOpen(true);
 
         if (mode === "create") {
             resetForm();
@@ -70,15 +83,26 @@ const DashboardEditor = ({ mode, info }) => {
                 <Form onSubmit={handleSubmit}>
                     <Grid container justifyContent={"center"}>
                         <Grid item>
-                            {alert.type && (
+                            <Collapse in={alertOpen}>
                                 <Alert
-                                    style={{ marginBottom: "1.2rem" }}
+                                    sx={{ mb: 2 }}
                                     severity={alert.type === "success" ? `success` : `error`}
+                                    action={
+                                        <IconButton
+                                            aria-label="close"
+                                            color="inherit"
+                                            size="small"
+                                            onClick={() => {
+                                                setAlertOpen(false);
+                                            }}
+                                        >
+                                            <CloseIcon fontSize="inherit" />
+                                        </IconButton>
+                                    }
                                 >
-                                    <AlertTitle>{alert.title}</AlertTitle>
                                     {alert.message}
                                 </Alert>
-                            )}
+                            </Collapse>
                             <TextField
                                 value={values.title}
                                 onChange={handleChange}
