@@ -18,26 +18,58 @@ import {Formik, Form} from "formik";
 import * as Yup from "yup";
 import Head from "next/head";
 import CloseIcon from "@mui/icons-material/Close";
+import theme from "../../src/theme";
 
-const validationSchema = Yup.object({
+const initialValidationSchema = Yup.object({
     email: Yup.string().email("Hatalı e-mail formatı."),
 });
 const initialValues = {
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
+    oldPassword: "",
+    newPassword: "",
 };
 
 const Profile = () => {
     const [user, setUser] = useAuth();
+    const [validationSchema, setValidationSchema] = useState(initialValidationSchema);
 
     const fileRef = createRef();
     const [alert, setAlert] = useState({ type: "", title: "", message: "" });
     const [alertOpen, setAlertOpen] = useState(false);
+    const [changePassword, setChangePassword] = useState(false);
 
-    const handleSubmit = (values, {resetForm}) => {
-        console.log(values);
+    const enablePasswordChange = () => {
+        setChangePassword(true);
+
+        setValidationSchema(
+            Yup.object({
+                email: Yup.string().email("Hatalı e-mail formatı."),
+                oldPassword: Yup.string().required("Parola boş bırakılamaz."),
+                newPassword: Yup.string().required("Parola doğrulama boş bırakılamaz.").min(8, "Parola en az 8 karakter olmalıdır.")
+            })
+        );
+    };
+
+    const handleSubmit = async (values, {resetForm}) => {
+        const response = await fetch("https://api.etucyber.com/api/profile-update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ ...values }),
+            credentials: "include",
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            setAlert({ type: "success", title: "Başarılı!", message: data.message });
+        }
+        else {
+            setAlert({ type: "error", title: "Hata!", message: data.message });
+        }
+        setAlertOpen(true);
         resetForm();
     };
 
@@ -144,24 +176,48 @@ const Profile = () => {
                                             id="email"
                                             label="E-mail Adresi"
                                             name="email"
-                                            autoComplete="email"
+                                            autoComplete="off"
                                             sx={{ backgroundColor: "white" }}
                                         />
                                     </Grid>
-                                    <Grid item xs={12}>
-                                        <TextField
-                                            value={values.password}
-                                            onChange={handleChange}
-                                            variant="outlined"
-                                            fullWidth
-                                            name="password"
-                                            label="Parola"
-                                            type="password"
-                                            id="password"
-                                            autoComplete="current-password"
-                                            sx={{ backgroundColor: "white" }}
-                                        />
-                                    </Grid>
+                                    {
+                                        changePassword ?
+                                        <React.Fragment>
+                                            <Grid item xs={12}>
+                                                <TextField
+                                                    value={values.oldPassword}
+                                                    onChange={handleChange}
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    name="oldPassword"
+                                                    label="Eski Parola"
+                                                    type="password"
+                                                    id="oldPassword"
+                                                    autoComplete="off"
+                                                    sx={{ backgroundColor: "white" }}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <TextField
+                                                    value={values.newPassword}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    name="newPassword"
+                                                    label="Yeni Parola"
+                                                    type="password"
+                                                    id="newPassword"
+                                                    autoComplete="off"
+                                                    sx={{ backgroundColor: "white" }}
+                                                />
+                                            </Grid>
+                                        </React.Fragment>
+                                        :
+                                        <Typography onClick={enablePasswordChange} sx={{ color: theme.palette.primary.main, ":hover": { cursor: "pointer" } }}>
+                                            Parolayı değiştir
+                                        </Typography>
+                                    }
                                 </Grid>
                                 <div>
                                     <input

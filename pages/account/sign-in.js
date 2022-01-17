@@ -12,7 +12,6 @@ import {
     Grid,
     Typography,
     Alert,
-    AlertTitle,
     Avatar, IconButton, Collapse
 } from "@mui/material";
 import Paper from '@mui/material/Paper';
@@ -42,6 +41,7 @@ const SignIn = () => {
     const handleSubmit = async (values, {resetForm}) => {
         if (!values.robot) {
             setErrorMessage("Lütfen robot olmadığınızı doğrulayın.");
+            setAlertOpen(true);
             return;
         }
 

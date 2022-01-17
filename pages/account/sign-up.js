@@ -19,6 +19,7 @@ import Link from "next/link";
 import {Formik, Form} from "formik";
 import * as Yup from "yup";
 import CloseIcon from "@mui/icons-material/Close";
+import {useRouter} from "next/router";
 
 const validationSchema = Yup.object({
     firstName: Yup.string().required("Ad boş bırakılamaz."),
@@ -42,13 +43,27 @@ const SignUp = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [alertOpen, setAlertOpen] = useState(false);
 
-    const handleSubmit = (values, {resetForm}) => {
+    const handleSubmit = async (values, {resetForm}) => {
         if (!values.robot) {
             setErrorMessage("Lütfen robot olmadığınızı doğrulayın.");
             setAlertOpen(true);
             return;
         }
-        console.log(values);
+        const response = await fetch("https://api.etucyber.com/api/account/sign-up", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(values),
+            credentials: "include",
+        });
+        const data = await response.json();
+
+        if (!data.success) {
+            setErrorMessage(data.message);
+            setAlertOpen(true);
+            return;
+        }
         resetForm();
     };
 
