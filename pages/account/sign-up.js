@@ -40,12 +40,12 @@ const initialValues = {
 };
 
 const SignUp = () => {
-    const [errorMessage, setErrorMessage] = useState("");
+    const [alert, setAlert] = useState({ type: "", message: "" });
     const [alertOpen, setAlertOpen] = useState(false);
 
     const handleSubmit = async (values, {resetForm}) => {
         if (!values.robot) {
-            setErrorMessage("Lütfen robot olmadığınızı doğrulayın.");
+            setAlert({ type: "error", message: "Lütfen robot olmadığınızı doğrulayın." });
             setAlertOpen(true);
             return;
         }
@@ -60,11 +60,14 @@ const SignUp = () => {
         const data = await response.json();
 
         if (!data.success) {
-            setErrorMessage(data.message);
+            setAlert({ type: "error", message: data.message });
             setAlertOpen(true);
             return;
         }
         resetForm();
+
+        setAlert({ type: "success", message: data.message });
+        setAlertOpen(true);
     };
 
     return (
@@ -92,7 +95,7 @@ const SignUp = () => {
                                             <Collapse in={alertOpen}>
                                                 <Alert
                                                     sx={{ mb: 2 }}
-                                                    severity="error"
+                                                    severity={alert.type}
                                                     action={
                                                         <IconButton
                                                             aria-label="close"
@@ -106,7 +109,7 @@ const SignUp = () => {
                                                         </IconButton>
                                                     }
                                                 >
-                                                    {errorMessage}
+                                                    {alert.message}
                                                 </Alert>
                                             </Collapse>
                                         </Grid>
