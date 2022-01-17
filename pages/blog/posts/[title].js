@@ -23,39 +23,6 @@ import "prismjs/components/prism-python";
 const BlogPost = ({post}) => {
     useEffect(() => {
         Prism.highlightAll();
-        if (typeof document !== "undefined") {
-            let pres = document.getElementsByTagName("pre");
-            let count = 0;
-
-            for (let pre of pres) {
-                let parent = pre.parentNode;
-
-                let outerDiv = document.createElement("div");
-                outerDiv.style = "position: relative;";
-
-                let copyButton = document.createElement("button");
-                copyButton.innerText = "Kopyala";
-                copyButton.className = "btn";
-                copyButton.id = "copyButton" + count;
-                copyButton.style = "position: absolute; right: 0; top: 0; margin: 15px;";
-                copyButton.onclick = function (ev) {
-                    this.className = "btn success-btn";
-                    this.innerText = "Kopyalandı!";
-                    navigator.clipboard.writeText(pre.textContent).then(() => console.log("copied!"));
-                    setTimeout(() => {
-                        this.className = "btn";
-                        this.innerText = "Kopyala";
-                    }, 2000);
-                };
-
-                outerDiv.appendChild(copyButton);
-                outerDiv.appendChild(pre);
-
-                parent.appendChild(outerDiv, pre);
-
-                count++;
-            }
-        }
     }, []);
 
     return (
